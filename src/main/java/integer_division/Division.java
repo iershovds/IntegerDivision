@@ -29,18 +29,15 @@ public class Division {
 
     private String divide(int dividend, int divisor, int dividendAbs, int divisorAbs) {
         StringBuilder result = new StringBuilder();
-        result.append(UNDERSCORE)
-                .append(dividend)
-                .append(VERTICAL_BAR)
-                .append(divisor)
-                .append(NEXT_LINE);
+        result.append(UNDERSCORE).append(dividend)
+              .append(VERTICAL_BAR).append(divisor).append(NEXT_LINE);
         String[] digits = Integer.toString(dividendAbs).split(EMPTY);
         VariablesOfDivision bufferNumbers = new VariablesOfDivision();
         for (int i = 0; i < digits.length; i++) {
-            bufferNumbers.setDividendNumber(bufferNumbers.getRemainder() * NUMBER_TEN + Integer.valueOf(digits[i]));
+            bufferNumbers.setDividendNumber(bufferNumbers.getRemainder() * NUMBER_TEN + Integer.parseInt(digits[i]));
             bufferNumbers.setRemainder(bufferNumbers.getDividendNumber());
             if (bufferNumbers.getIteration() == 1) {
-                iterateFirstTime(dividend, bufferNumbers, divisorAbs, i, divisor, result);
+                iterateFirstTime(dividend, bufferNumbers, divisorAbs, divisor, result);
             } else {
                 iterateNextTime(dividend, bufferNumbers, divisorAbs, i, result);
             }
@@ -51,12 +48,12 @@ public class Division {
 
     private void iterateLastTime(int dividend, VariablesOfDivision bufferNumbers, int i, String[] digits, StringBuilder result) {
         if (i == digits.length - 1) {
-            int lenghtLine = digits.length + NUMBER_ONE_FOR_MODIFY_TAB;
+            int lengthLine = digits.length + NUMBER_ONE_FOR_MODIFY_TAB;
             int remainder = bufferNumbers.getRemainder();
             if (dividend < 0) {
-                lenghtLine++;
+                lengthLine++;
             }
-            result.append(formatIntegerValue(remainder, lenghtLine))
+            result.append(formatIntegerValue(remainder, lengthLine))
                     .append(NEXT_LINE);
         }
     }
@@ -65,44 +62,44 @@ public class Division {
         int dividendNumber = bufferNumbers.getDividendNumber();
         if (dividendNumber >= divisorAbs || dividendNumber == 0) {
             int multiplyResult = dividendNumber / divisorAbs * divisorAbs;
-            int lenghtTabWithDividendNumber = i + NUMBER_TWO_FOR_MODIFY_TAB;
+            int lengthTabWithDividendNumber = i + NUMBER_TWO_FOR_MODIFY_TAB;
             if (dividend < 0) {
-                lenghtTabWithDividendNumber++;
+                lengthTabWithDividendNumber++;
             }
-            result.append(formatDividend(dividendNumber, lenghtTabWithDividendNumber)).append(NEXT_LINE)
-                    .append(formatIntegerValue(multiplyResult, lenghtTabWithDividendNumber)).append(NEXT_LINE)
-                    .append(formatHorizontalLine(multiplyResult, lenghtTabWithDividendNumber)).append(NEXT_LINE);
-            bufferNumbers.setFirstDividend(dividendNumber);
+            result.append(formatDividend(dividendNumber, lengthTabWithDividendNumber)).append(NEXT_LINE)
+                  .append(formatIntegerValue(multiplyResult, lengthTabWithDividendNumber)).append(NEXT_LINE)
+                  .append(formatHorizontalLine(multiplyResult, lengthTabWithDividendNumber)).append(NEXT_LINE);
+            bufferNumbers.setFirstDividend();
             bufferNumbers.setRemainder(dividendNumber % divisorAbs);
         }
     }
 
-    private void iterateFirstTime(int dividend, VariablesOfDivision bufferNumbers, int divisorAbs, int i, int divisor,
+    private void iterateFirstTime(int dividend, VariablesOfDivision bufferNumbers, int divisorAbs, int divisor,
                                   StringBuilder result) {
         int dividendNumber = bufferNumbers.getDividendNumber();
         if (dividendNumber >= divisorAbs) {
             int multiplyResult = dividendNumber / divisorAbs * divisorAbs;
             int quotient = dividend / divisor;
-            int lenghtTabWithMultiplyResult = countDigits(dividendNumber)
+            int lengthTabWithMultiplyResult = countDigits(dividendNumber)
                     + NUMBER_ONE_FOR_TAB_OF_FIRST_ITERATION;
             if (dividend < 0) {
-                lenghtTabWithMultiplyResult++;
+                lengthTabWithMultiplyResult++;
             }
-            int lenghtOfSuffixAfterDivision = countDigits(dividend) - lenghtTabWithMultiplyResult
+            int lengthOfSuffixAfterDivision = countDigits(dividend) - lengthTabWithMultiplyResult
                     + NUMBER_ONE_FOR_TAB_OF_FIRST_ITERATION;
-            int lenghtHorizontalLine = countSizeHorizontalLine(divisor, quotient);
-            result.append(formatIntegerValue(multiplyResult, lenghtTabWithMultiplyResult))
-                    .append(assemblySymbolsToString(lenghtOfSuffixAfterDivision, SPACE_SYMBOL))
+            int lengthHorizontalLine = countSizeHorizontalLine(divisor, quotient);
+            result.append(formatIntegerValue(multiplyResult, lengthTabWithMultiplyResult))
+                    .append(assemblySymbolsToString(lengthOfSuffixAfterDivision, SPACE_SYMBOL))
                     .append(VERTICAL_BAR)
-                    .append(defineHorizontalLine(lenghtHorizontalLine))
+                    .append(defineHorizontalLine(lengthHorizontalLine))
                     .append(NEXT_LINE)
-                    .append(formatHorizontalLine(multiplyResult, lenghtTabWithMultiplyResult))
-                    .append(assemblySymbolsToString(lenghtOfSuffixAfterDivision, SPACE_SYMBOL))
+                    .append(formatHorizontalLine(multiplyResult, lengthTabWithMultiplyResult))
+                    .append(assemblySymbolsToString(lengthOfSuffixAfterDivision, SPACE_SYMBOL))
                     .append(VERTICAL_BAR)
                     .append(quotient)
                     .append(NEXT_LINE);
             bufferNumbers.setIteration(bufferNumbers.getIteration() + 1);
-            bufferNumbers.setFirstDividend(dividendNumber);
+            bufferNumbers.setFirstDividend();
             bufferNumbers.setRemainder(dividendNumber % divisorAbs);
         }
     }
@@ -113,27 +110,25 @@ public class Division {
     }
 
     private String divideIfDividendIsZero(int divisor) {
-        StringBuilder result = new StringBuilder();
-        result.append(UNDERSCORE).append(ZERO).append(VERTICAL_BAR).append(divisor).append(NEXT_LINE)
-                .append(SPACE).append(ZERO).append(VERTICAL_BAR).append(defineHorizontalLine(countDigits(divisor))).append(NEXT_LINE)
-                .append(SPACE).append(MINUS).append(VERTICAL_BAR).append(ZERO).append(NEXT_LINE)
-                .append(SPACE).append(ZERO).append(NEXT_LINE);
-        return result.toString();
+        return String.valueOf(UNDERSCORE) + ZERO + VERTICAL_BAR + divisor + NEXT_LINE +
+                SPACE + ZERO + VERTICAL_BAR + defineHorizontalLine(countDigits(divisor)) + NEXT_LINE +
+                SPACE + MINUS + VERTICAL_BAR + ZERO + NEXT_LINE +
+                SPACE + ZERO + NEXT_LINE;
     }
 
     private String divideIfDividendAbsAndDivisorAbsAreEquals(int dividend, int divisor) {
         int divisorAbs = Math.abs(divisor);
-        int lenghtLine = countDigits(dividend) + 1;
+        int lengthLine = countDigits(dividend) + 1;
         StringBuilder result = new StringBuilder();
         result.append(UNDERSCORE).append(dividend).append(VERTICAL_BAR).append(divisor).append(NEXT_LINE);
         if (dividend < 0) {
             result.append(SPACE).append(SPACE).append(divisorAbs).append(VERTICAL_BAR).append(defineHorizontalLine(countDigits(divisor))).append(NEXT_LINE)
-                    .append(SPACE).append(SPACE).append(defineHorizontalLine(countDigits(divisorAbs))).append(VERTICAL_BAR).append(dividend / divisor).append(NEXT_LINE)
-                    .append(formatIntegerValue(ZERO, lenghtLine)).append(NEXT_LINE);
+                  .append(SPACE).append(SPACE).append(defineHorizontalLine(countDigits(divisorAbs))).append(VERTICAL_BAR).append(dividend / divisor).append(NEXT_LINE)
+                  .append(formatIntegerValue(ZERO, lengthLine)).append(NEXT_LINE);
         } else {
             result.append(SPACE).append(divisorAbs).append(VERTICAL_BAR).append(defineHorizontalLine(countDigits(divisor))).append(NEXT_LINE)
-                    .append(SPACE).append(defineHorizontalLine(countDigits(divisorAbs))).append(VERTICAL_BAR).append(dividend / divisor).append(NEXT_LINE)
-                    .append(formatIntegerValue(ZERO, lenghtLine)).append(NEXT_LINE);
+                  .append(SPACE).append(defineHorizontalLine(countDigits(divisorAbs))).append(VERTICAL_BAR).append(dividend / divisor).append(NEXT_LINE)
+                  .append(formatIntegerValue(ZERO, lengthLine)).append(NEXT_LINE);
         }
         return result.toString();
     }
@@ -156,25 +151,21 @@ public class Division {
         return result.format(value);
     }
 
-    private String formatDividend(Integer value, int lenght) {
-        return String.format("%" + lenght + "s", UNDERSCORE + value.toString());
+    private String formatDividend(Integer value, int length) {
+        return String.format("%" + length + "s", UNDERSCORE + value.toString());
     }
 
-    private String formatIntegerValue(int value, int lenght) {
-        return String.format("%" + lenght + "d", value);
+    private String formatIntegerValue(int value, int length) {
+        return String.format("%" + length + "d", value);
     }
 
-    private String formatHorizontalLine(int multiplyResult, int lenght) {
+    private String formatHorizontalLine(int multiplyResult, int length) {
         String horizontalLine = assemblySymbolsToString(countDigits(multiplyResult), MINUS);
-        return String.format("%" + lenght + "s", horizontalLine);
+        return String.format("%" + length + "s", horizontalLine);
     }
 
     private String assemblySymbolsToString(int amountOfSymbols, char symbol) {
-        StringBuilder string = new StringBuilder();
-        for (int i = 0; i < amountOfSymbols; i++) {
-            string.append(symbol);
-        }
-        return string.toString();
+        return String.valueOf(symbol).repeat(Math.max(0, amountOfSymbols));
     }
 
     private int countSizeHorizontalLine(int divisor, int quotient) {

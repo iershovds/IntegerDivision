@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>education</groupId>
     <artifactId>IntegerDivision</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>q
     <name>IntegerDivision</name>
     <description>Application Integer Division that divides numbers and prints result into the console.</description>
     <properties>

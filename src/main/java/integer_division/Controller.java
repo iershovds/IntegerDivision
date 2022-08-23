@@ -62,11 +62,7 @@ public class Controller {
     }
 
     private void validateInput(String input) {
-        if (input.equals(null) || input.equals(EMPTY)) {
-            app.printWrongInput();
-            continueApp();
-        }
-        if (!input.matches(REGEX_DIGITS)) {
+        if (input.equals(null) || input.equals(EMPTY) || !input.matches(REGEX_DIGITS)) {
             app.printWrongInput();
             continueApp();
         }

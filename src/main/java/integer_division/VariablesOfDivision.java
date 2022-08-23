@@ -3,7 +3,6 @@ package integer_division;
 public class VariablesOfDivision {
     private int dividendNumber = 0;
     private int remainder = 0;
-    private int firstDividend = 0;
     private int iteration = 1;
 
     public int getDividendNumber() {
@@ -22,12 +21,7 @@ public class VariablesOfDivision {
         this.remainder = remainder;
     }
 
-    public int getFirstDividend() {
-        return firstDividend;
-    }
-
-    public void setFirstDividend(int firstDividend) {
-        this.firstDividend = firstDividend;
+    public void setFirstDividend() {
     }
 
     public int getIteration() {

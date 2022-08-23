@@ -2,9 +2,7 @@ package integer_division;
 
 public class Constants {
     public static class MessageException {
-        public static final String INPUT_NULL_OR_EMPTY = "Input is null or empty. ";
         public static final String DIVISOR_IS_ZERO = "Divisor can't be 0. ";
-        public static final String NON_DIGIT_SYMBOLS = "Input contains non-digits symbols. ";
     }
 
     public static class Division {

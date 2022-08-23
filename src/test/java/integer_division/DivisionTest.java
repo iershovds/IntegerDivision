@@ -1,6 +1,7 @@
 package integer_division;
 
 import org.junit.jupiter.api.Test;
+
 import static integer_division.Constants.MessageException.DIVISOR_IS_ZERO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
